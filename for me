@@ -1,0 +1,60 @@
+#include <iostream>
+int findMaxByModulus(int *arr, int n);
+int main() {
+    int n;
+    std::cout << "Enter the size of the array: ";
+    std::cin >> n;
+
+    int *arr = new int[n];
+    // Fill the array
+    for (int i = 0; i < n; i++) {
+        std::cout << "Enter the " << i + 1 << " element of the array: ";
+        std::cin >> arr[i];
+    }
+    int max = findMaxByModulus(arr, n);
+    std::cout << "The maximum element (by module) is: " << max << std::endl;
+    int sum = 0;
+    int count = 0;
+    for (int i = 0; i < n; i++) {
+        if (arr[i] > 0) {
+            count++;
+            if (count == 2) {
+                break;
+            }
+        }
+        if (count == 1) {
+            sum += arr[i];
+        }
+    }
+
+    std::cout << "The sum of elements between the first and second positive elements is: " << sum << std::endl;
+    int *arr2 = new int[n];
+    int j = 0;
+    for (int i = 0; i < n; i++) {
+        if (arr[i] != 0) {
+            arr2[j] = arr[i];
+            j++;
+        }
+    }
+    for (int i = j; i < n; i++) {
+        arr2[i] = 0;
+    }
+    std::cout << "The array with zeros at the end: ";
+    for (int i = 0; i < n; i++) {
+        std::cout << arr2[i] << " ";
+    }
+    std::cout << std::endl;
+    delete[] arr;
+    delete[] arr2;
+    return 0;
+}
+
+int findMaxByModulus(int *arr, int n) {
+    int max = arr[0];
+    for (int i = 1; i < n; i++) {
+        if (abs(arr[i]) > abs(max)) {
+            max = arr[i];
+        }
+    }
+    return max;
+}
